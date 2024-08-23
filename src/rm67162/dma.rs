@@ -9,7 +9,6 @@ use embedded_graphics::{
     Pixel,
 };
 use embedded_hal_1::{delay::DelayNs, digital::OutputPin};
-use esp_println::println;
 
 use hal::{
     Blocking,
@@ -104,6 +103,9 @@ where
             //self.send_cmd(0x51, &[0xD0])?; // write brightness
             buf[0] = 0xd0;
             self.send_cmd(0x51, &buf)?; // write brightness
+
+            buf[0] = 0x00;
+            self.send_cmd(0x35, &buf)?; // tearing effect line on
         }
 
         self.set_orientation(self.orientation)?;
